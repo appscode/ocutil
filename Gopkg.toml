@@ -22,20 +22,20 @@
 
 
 [[constraint]]
-  branch = "release-6.0"
+  branch = "release-7.0"
   name = "github.com/appscode/kutil"
 
 [[override]]
-  branch = "release-3.9"
   name = "github.com/openshift/api"
+  revision = "09a4e3d50f1aae6613b1b86941ffb8bded21e674"
 
 [[override]]
-  branch = "release-3.9"
   name = "github.com/openshift/client-go"
+  revision = "b3f4c8b4682c151defdd33ce75acfbf5fb30bccc"
 
 [[override]]
   name = "github.com/openshift/origin"
-  version = "=v3.9.0"
+  revision = "93f12e580ece30e0055f030dcd6d239116ff5cb4"
 
 [prune]
   unused-packages = true

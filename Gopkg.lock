@@ -14,14 +14,14 @@
   revision = "3e75a56b8967932466984d4432401e1c1a7ff61e"
 
 [[projects]]
-  branch = "master"
+  branch = "release-7.0"
   name = "github.com/appscode/kutil"
   packages = [
     ".",
     "core/v1",
     "meta"
   ]
-  revision = "436b54978ae275a61a06baa3f0a119864691cf12"
+  revision = "5f32f8cbf60b6397cd70f9797b99c7cc8138220f"
 
 [[projects]]
   branch = "master"
@@ -141,20 +141,18 @@
   version = "1.0.0"
 
 [[projects]]
-  branch = "release-3.9"
   name = "github.com/openshift/api"
   packages = ["apps/v1"]
-  revision = "0d921e363e951d89f583292c60d013c318df64dc"
+  revision = "09a4e3d50f1aae6613b1b86941ffb8bded21e674"
 
 [[projects]]
-  branch = "release-3.9"
   name = "github.com/openshift/client-go"
   packages = [
     "apps/clientset/versioned",
     "apps/clientset/versioned/scheme",
     "apps/clientset/versioned/typed/apps/v1"
   ]
-  revision = "42d4abb856ce41c204a6e24342f12be5b5cd9ab8"
+  revision = "b3f4c8b4682c151defdd33ce75acfbf5fb30bccc"
 
 [[projects]]
   branch = "master"
@@ -382,6 +380,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8282ff0df6c799d2c05419458fa90a616fbd2a8f3ec1a68bc0d5f41cac1885cf"
+  inputs-digest = "12bd108a035a73c919fa7e5a9ede5f9a59f8609cb2e6f1e9cfbd0cd42a7ed2c4"
   solver-name = "gps-cdcl"
   solver-version = 1

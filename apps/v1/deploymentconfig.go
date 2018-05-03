@@ -4,7 +4,7 @@ import (
 	"github.com/appscode/kutil"
 	core_util "github.com/appscode/kutil/core/v1"
 	"github.com/golang/glog"
-	apps "github.com/openshift/api/apps/v1"
+	ocapps "github.com/openshift/api/apps/v1"
 	oc "github.com/openshift/client-go/apps/clientset/versioned"
 	"github.com/pkg/errors"
 	kerr "k8s.io/apimachinery/pkg/api/errors"
@@ -15,14 +15,14 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func CreateOrPatchDeploymentConfig(c oc.Interface, meta metav1.ObjectMeta, transform func(*apps.DeploymentConfig) *apps.DeploymentConfig) (*apps.DeploymentConfig, kutil.VerbType, error) {
+func CreateOrPatchDeploymentConfig(c oc.Interface, meta metav1.ObjectMeta, transform func(*ocapps.DeploymentConfig) *ocapps.DeploymentConfig) (*ocapps.DeploymentConfig, kutil.VerbType, error) {
 	cur, err := c.AppsV1().DeploymentConfigs(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
 	if kerr.IsNotFound(err) {
 		glog.V(3).Infof("Creating DeploymentConfig %s/%s.", meta.Namespace, meta.Name)
-		out, err := c.AppsV1().DeploymentConfigs(meta.Namespace).Create(transform(&apps.DeploymentConfig{
+		out, err := c.AppsV1().DeploymentConfigs(meta.Namespace).Create(transform(&ocapps.DeploymentConfig{
 			TypeMeta: metav1.TypeMeta{
 				Kind:       "DeploymentConfig",
-				APIVersion: apps.SchemeGroupVersion.String(),
+				APIVersion: ocapps.SchemeGroupVersion.String(),
 			},
 			ObjectMeta: meta,
 		}))
@@ -33,11 +33,11 @@ func CreateOrPatchDeploymentConfig(c oc.Interface, meta metav1.ObjectMeta, trans
 	return PatchDeploymentConfig(c, cur, transform)
 }
 
-func PatchDeploymentConfig(c oc.Interface, cur *apps.DeploymentConfig, transform func(*apps.DeploymentConfig) *apps.DeploymentConfig) (*apps.DeploymentConfig, kutil.VerbType, error) {
+func PatchDeploymentConfig(c oc.Interface, cur *ocapps.DeploymentConfig, transform func(*ocapps.DeploymentConfig) *ocapps.DeploymentConfig) (*ocapps.DeploymentConfig, kutil.VerbType, error) {
 	return PatchDeploymentConfigObject(c, cur, transform(cur.DeepCopy()))
 }
 
-func PatchDeploymentConfigObject(c oc.Interface, cur, mod *apps.DeploymentConfig) (*apps.DeploymentConfig, kutil.VerbType, error) {
+func PatchDeploymentConfigObject(c oc.Interface, cur, mod *ocapps.DeploymentConfig) (*ocapps.DeploymentConfig, kutil.VerbType, error) {
 	curJson, err := json.Marshal(cur)
 	if err != nil {
 		return nil, kutil.VerbUnchanged, err
@@ -48,7 +48,7 @@ func PatchDeploymentConfigObject(c oc.Interface, cur, mod *apps.DeploymentConfig
 		return nil, kutil.VerbUnchanged, err
 	}
 
-	patch, err := strategicpatch.CreateTwoWayMergePatch(curJson, modJson, apps.DeploymentConfig{})
+	patch, err := strategicpatch.CreateTwoWayMergePatch(curJson, modJson, ocapps.DeploymentConfig{})
 	if err != nil {
 		return nil, kutil.VerbUnchanged, err
 	}
@@ -60,7 +60,7 @@ func PatchDeploymentConfigObject(c oc.Interface, cur, mod *apps.DeploymentConfig
 	return out, kutil.VerbPatched, err
 }
 
-func TryUpdateDeploymentConfig(c oc.Interface, meta metav1.ObjectMeta, transform func(*apps.DeploymentConfig) *apps.DeploymentConfig) (result *apps.DeploymentConfig, err error) {
+func TryUpdateDeploymentConfig(c oc.Interface, meta metav1.ObjectMeta, transform func(*ocapps.DeploymentConfig) *ocapps.DeploymentConfig) (result *ocapps.DeploymentConfig, err error) {
 	attempt := 0
 	err = wait.PollImmediate(kutil.RetryInterval, kutil.RetryTimeout, func() (bool, error) {
 		attempt++
