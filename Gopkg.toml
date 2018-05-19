@@ -27,7 +27,7 @@
 
 [[override]]
   name = "github.com/openshift/api"
-  revision = "09a4e3d50f1aae6613b1b86941ffb8bded21e674"
+  revision = "0b124e96c73f69a6a91baefe15971c392510a7d7"
 
 [[override]]
   name = "github.com/openshift/client-go"

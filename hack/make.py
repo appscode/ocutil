@@ -61,17 +61,19 @@ def version():
 
 
 def fmt():
-    libbuild.ungroup_go_imports('apps')
-    die(call('goimports -w apps'))
-    call('gofmt -s -w apps')
+    libbuild.ungroup_go_imports('apps security')
+    die(call('goimports -w apps security'))
+    call('gofmt -s -w apps security')
 
 
 def vet():
     call('go vet ./apps/...')
+    call('go vet ./security/...')
 
 
 def lint():
     call('golint ./apps/...')
+    call('golint ./security/...')
 
 
 def gen():
