@@ -3,8 +3,8 @@ package v1
 import (
 	"github.com/appscode/kutil"
 	"github.com/golang/glog"
-	api "github.com/openshift/api/security/v1"
-	cs "github.com/openshift/client-go/security/clientset/versioned"
+	api "github.com/pharmer/openshift/apis/security/v1"
+	cs "github.com/pharmer/openshift/client/clientset/versioned"
 	"github.com/pkg/errors"
 	kerr "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -16,7 +16,7 @@ import (
 func CreateOrPatchSecurityContextConstraints(c cs.Interface, meta metav1.ObjectMeta, transform func(*api.SecurityContextConstraints) *api.SecurityContextConstraints) (*api.SecurityContextConstraints, kutil.VerbType, error) {
 	cur, err := c.SecurityV1().SecurityContextConstraints().Get(meta.Name, metav1.GetOptions{})
 	if kerr.IsNotFound(err) {
-		glog.V(3).Infof("Creating SecurityContextConstraints %s/%s.", meta.Name)
+		glog.V(3).Infof("Creating SecurityContextConstraints %s/%s.", meta.Namespace, meta.Name)
 		out, err := c.SecurityV1().SecurityContextConstraints().Create(transform(&api.SecurityContextConstraints{
 			TypeMeta: metav1.TypeMeta{
 				Kind:       "SecurityContextConstraints",

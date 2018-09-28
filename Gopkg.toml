@@ -1,7 +1,6 @@
-
 # Gopkg.toml example
 #
-# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
+# Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
 # for detailed Gopkg.toml documentation.
 #
 # required = ["github.com/user/thing/cmd/thing"]
@@ -17,26 +16,50 @@
 #   source = "github.com/myfork/project2"
 #
 # [[override]]
-#  name = "github.com/x/y"
-#  version = "2.4.0"
+#   name = "github.com/x/y"
+#   version = "2.4.0"
+#
+# [prune]
+#   non-go = false
+#   go-tests = true
+#   unused-packages = true
 
 
 [[constraint]]
-  branch = "release-8.0"
   name = "github.com/appscode/kutil"
+  branch = "k-1.12"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/golang/glog"
+
+[[constraint]]
+  name = "github.com/json-iterator/go"
+  version = "1.1.5"
+
+[[constraint]]
+  name = "github.com/pharmer/openshift"
+  branch = "ac-1.12.0"
+
+[[constraint]]
+  name = "github.com/pkg/errors"
+  version = "0.8.0"
 
 [[override]]
-  name = "github.com/openshift/api"
-  revision = "31a7bbd2266d178da3c12bb83f5274d387f775e6"
+  name = "k8s.io/api"
+  branch = "ac-1.12.0"
+  source = "github.com/pharmer/api"
 
 [[override]]
-  name = "github.com/openshift/client-go"
-  revision = "4688ad28de2e88110c0ea30179c51b9b205f99be"
+  name = "k8s.io/apimachinery"
+  branch = "ac-1.12.0"
+  source = "github.com/pharmer/apimachinery"
 
 [[override]]
-  name = "github.com/openshift/origin"
-  revision = "fecffb2fce100260088a1b9f268c0901a778cf2b"
+  name = "k8s.io/client-go"
+  branch = "ac-1.12.0"
+  source = "github.com/pharmer/client-go"
 
 [prune]
-  unused-packages = true
   go-tests = true
+  unused-packages = true
